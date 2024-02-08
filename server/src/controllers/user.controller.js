@@ -199,7 +199,7 @@ const logoutUser = async(req, res) => {
 const healthCheck = async(req, res) => {
     return res
         .status(200)
-        .json({ message: "Everything is O.K" }, "Ok");
+        .json({ message: "Everything is O.K" });
 }
 
 export { registerUser, loginUser, getCurrentUser, postContact, logoutUser, healthCheck } 
