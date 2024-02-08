@@ -196,4 +196,10 @@ const logoutUser = async(req, res) => {
     .json({msg:"User logged out succesfully"})
 }
 
-export { registerUser, loginUser, getCurrentUser, postContact, logoutUser } 
+const healthCheck = async(req, res) => {
+    return res
+        .status(200)
+        .json({ message: "Everything is O.K" }, "Ok");
+}
+
+export { registerUser, loginUser, getCurrentUser, postContact, logoutUser, healthCheck } 
