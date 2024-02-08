@@ -9,7 +9,7 @@ export default function Logout() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('/user/api/logout',{
+        fetch(`/user/api/logout`,{
             method: "POST",
             headers:{
                 'Content-Type': 'application/json'

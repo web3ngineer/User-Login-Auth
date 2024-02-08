@@ -30,7 +30,7 @@ function Register() {
         }
         else{
             try {
-                const resData = await fetch('/user/api/register',
+                const resData = await fetch(`/user/api/register`,
                     {method: "POST",
                         headers:{
                             "Content-Type": "application/json"

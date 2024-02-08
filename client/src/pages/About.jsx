@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
+
 function About() {
 
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function About() {
 
   const callAboutPage = async() => {
     try {
-      const resData = await fetch('/user/api/current-user',{
+      const resData = await fetch(`/user/api/current-user`,{
         method: "GET",
         headers:{
           "Content-Type": "application/json",

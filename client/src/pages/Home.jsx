@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+
 
 export default function Home() {
 
@@ -8,7 +8,7 @@ export default function Home() {
 
     const callHomePage = async() => {
         try {
-            const resData = await fetch('/user/api/contact-data',{
+            const resData = await fetch(`/user/api/contact-data`,{
                 method: "GET",
                 headers:{
                     "Content-Type": "application/json",

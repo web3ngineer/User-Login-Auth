@@ -6,7 +6,7 @@ export default function Contact() {
 
     const callContactPage = async() => {
         try {
-            const resData = await fetch('/user/api/contact-data',{
+            const resData = await fetch(`/user/api/contact-data`,{
                 method: "GET",
                 headers:{
                     "Content-Type": "application/json",

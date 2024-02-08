@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App';
 
+
 function Login() {
 
     const {state, dispatch} = useContext(UserContext);
@@ -15,7 +16,7 @@ function Login() {
     const loginUser = async(e) => {
         e.preventDefault();
         try {
-            const resData = await fetch('/user/api/login', {
+            const resData = await fetch(`/user/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
