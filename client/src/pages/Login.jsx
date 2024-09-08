@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App';
 import axiosInstance from '../utils/axiosInstance';
+import { LoaderCircle } from 'lucide-react';
 
 
 function Login() {
@@ -12,12 +13,13 @@ function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
     const loginUser = async(e) => {
         e.preventDefault();
         try {
-
+            setLoading(true)
             const resData = await axiosInstance.post('/user/api/login', { email, password })
             // const resData = await fetch(`/user/api/login`, {
             //     method: "POST",
@@ -30,6 +32,8 @@ function Login() {
             // .then((res) => res.json())
             // if (!resData.success) throw new Error(resData.message);
 
+            setLoading(false)
+            
             if(resData.status == 401){
                 alert("Invalid Email or Password")
             }
@@ -109,9 +113,10 @@ function Login() {
                         <button
                             type="submit"
                             onClick={loginUser}
-                            className=" ml-6 md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-1.5 px-4 rounded-lg mt-6 text-[1rem] hover:bg-orange-600 transition ease-in-out duration-300"
+                            disabled={loading}
+                            className="flex justify-center items-center ml-6 md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-1.5 px-4 rounded-lg mt-6 text-[1rem] hover:bg-orange-600 transition ease-in-out duration-300"
                         >
-                            Login
+                            {loading? <LoaderCircle className="animate-spin"/> : "Login"}
                         </button>
                         <div className='flex pl-6 text-[1rem] mt-6'>
                             <p>Not registered?&nbsp;</p>
