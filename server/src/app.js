@@ -6,7 +6,7 @@ import dotenv from "dotenv"
 dotenv.config({
     path: '.env',
 })
-// console.log(process.env.CORS_ORIGIN)
+console.log(process.env.CORS_ORIGIN)
 
 const app = express();
 
