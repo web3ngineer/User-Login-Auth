@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axiosInstance from '../utils/axiosInstance';
+import axios from 'axios';
 
 function Register() {
 
@@ -30,14 +32,16 @@ function Register() {
         }
         else{
             try {
-                const resData = await fetch(`/user/api/register`,
-                    {method: "POST",
-                        headers:{
-                            "Content-Type": "application/json"
-                            },
-                        body: JSON.stringify({fullName, email, phoneNumber, work, password, confirmPassword, username})
-                    }
-                )
+
+                const resData = await axiosInstance.post('/user/api/register', formData)
+                // const resData = await fetch(`/user/api/register`,
+                //     {method: "POST",
+                //         headers:{
+                //             "Content-Type": "application/json"
+                //             },
+                //         body: JSON.stringify({fullName, email, phoneNumber, work, password, confirmPassword, username})
+                //     }
+                // )
                 // .then((res)=> res.json())
                 // .catch((error)=>{console.log(error)})
                 // console.log(resData);
@@ -66,17 +70,17 @@ function Register() {
   return (
     <section className='relative flex items-top justify-center min-h-[700px] bg-gray-50 sm:items-center sm:pt-0'>
         <div className='max-w-6xl mx-auto sm:px-6 lg:px-8 sm:text-xl'>
-            <div className='shadow grid grid-cols-1 md:grid-cols-2 p-6 gap-6 rounded-lg  bg-white'>
-                <form method='POST' className="p-6 flex flex-col justify-center border rounded-lg ">
-                    <div className=' ml-6 pb-4 font-extrabold text-2xl flex items-start'>
+            <div className='grid grid-cols-1 gap-6 p-6 bg-white rounded-lg shadow md:grid-cols-2'>
+                <form method='POST' className="flex flex-col justify-center p-6 border rounded-lg ">
+                    <div className='flex items-start pb-4 ml-6 text-2xl font-extrabold '>
                       <h1>Sign up</h1>
                     </div>
                     <div className="flex gap-2 gap">
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-account zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-account zmdi-hc-1x"></i>
                         </div>
                         <div className='flex flex-col w-full'>
-                          <label for="name" className="hidden">
+                          <label htmlFor="name" className="hidden">
                               Full Name
                           </label>
                           <input
@@ -91,11 +95,11 @@ function Register() {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-email zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-email zmdi-hc-1x"></i>
                         </div>
                         <div className='flex flex-col w-full'>
-                          <label for="email" className="hidden">
+                          <label htmlFor="email" className="hidden">
                               Email
                           </label>
                           <input
@@ -110,11 +114,11 @@ function Register() {
                         </div>
                     </div>
                     <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-phone-in-talk zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-phone-in-talk zmdi-hc-1x"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="phoneNumber" className="hidden">
+                        <label htmlFor="phoneNumber" className="hidden">
                             Number
                         </label>
                         <input
@@ -130,11 +134,11 @@ function Register() {
                     </div>
                     
                     <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-assignment zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-assignment zmdi-hc-1x"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="work" className="hidden">
+                        <label htmlFor="work" className="hidden">
                             Work
                         </label>
                         <input
@@ -149,11 +153,11 @@ function Register() {
                     </div>
                     </div>
                     <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                        <i class="zmdi zmdi-github-alt"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                        <i className="zmdi zmdi-github-alt"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="username" className="hidden">
+                        <label htmlFor="username" className="hidden">
                             gitHub Username
                         </label>
                         <input
@@ -169,11 +173,11 @@ function Register() {
                     </div>
                     
                     <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-lock zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-lock zmdi-hc-1x"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="password" className="hidden">
+                        <label htmlFor="password" className="hidden">
                             Password
                         </label>
                         <input
@@ -189,11 +193,11 @@ function Register() {
                     </div>
                     
                     <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-lock zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-lock zmdi-hc-1x"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="confirmPassword" className="hidden">
+                        <label htmlFor="confirmPassword" className="hidden">
                             Confirm Password
                         </label>
                         <input
@@ -217,14 +221,14 @@ function Register() {
                         Submit
                     </button>
                 </form>
-                <div className="p-6 bg-gray-100 rounded-lg h-auto ">
-                    <div className= "w-full h-full flex flex-col justify-center items-center gap-6">
+                <div className="h-auto p-6 bg-gray-100 rounded-lg ">
+                    <div className= "flex flex-col items-center justify-center w-full h-full gap-6">
                         <img className="w-96" src="https://i.ibb.co/5BCcDYB/Remote2.png" alt="image1" />
                         <div className='flex p-6 text-[1rem]'>
                             <p>Already registered?&nbsp;</p>
                             <Link
                             to={'/login'}
-                            className='hover:text-black hover:underline font-semibold'
+                            className='font-semibold hover:text-black hover:underline'
                             >
                               Login here
                             </Link>

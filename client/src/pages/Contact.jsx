@@ -1,8 +1,21 @@
-import React,{useEffect, useState} from 'react'
+'use client'
+import {useEffect, useState} from 'react'
 
-export default function Contact() {
+// interface UserData {
+//     fullName: String,
+//     email: String,
+//     phoneNumber: String,
+//     message: String,
+// }
 
-    const [userData, setUserData] = useState({fullName:"", email:"", phoneNumber:"", message:""});
+export default function page() {
+
+    const [userData, setUserData] = useState<{
+        fullName: String,
+        email: String,
+        phoneNumber: String,
+        message: String,
+    }>({fullName:"", email:"", phoneNumber:"", message:""});
 
     const callContactPage = async() => {
         try {
@@ -24,7 +37,7 @@ export default function Contact() {
         }
     }
 
-    useEffect(() => {
+    useEffect((e) => {
         callContactPage();
     }, [])
 
@@ -76,12 +89,12 @@ export default function Contact() {
         <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0 ">
             <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div className="mt-8 overflow-hidden">
-                    <div className="grid grid-cols-1 md:grid-cols-2 border p-6 rounded-lg">
+                    <div className="grid grid-cols-1 p-6 border rounded-lg md:grid-cols-2">
                         <div className="p-6 mr-2 bg-gray-100 sm:rounded-lg">
-                            <h1 className="text-3xl sm:text-4xl text-gray-800 font-extrabold tracking-tight">
+                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-800 sm:text-4xl">
                                 Get in touch: 
                             </h1>
-                            <p className="text-normal text-lg sm:text-xl font-medium text-gray-600 mt-2">
+                            <p className="mt-2 text-lg font-medium text-gray-600 text-normal sm:text-xl">
                                 Fill in the form to start a conversation
                             </p>
 
@@ -108,7 +121,7 @@ export default function Contact() {
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                     />
                                 </svg>
-                                <div className="ml-4 text-md tracking-wide font-semibold w-40">
+                                <div className="w-40 ml-4 font-semibold tracking-wide text-md">
                                     Acme Inc, Street, State, Postal Code
                                 </div>
                             </div>
@@ -130,7 +143,7 @@ export default function Contact() {
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     />
                                 </svg>
-                                <div className="ml-4 text-md tracking-wide font-semibold w-40">
+                                <div className="w-40 ml-4 font-semibold tracking-wide text-md">
                                     +44 1234567890
                                 </div>
                             </div>
@@ -152,7 +165,7 @@ export default function Contact() {
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                     />
                                 </svg>
-                                <div className="ml-4 text-md tracking-wide font-semibold w-40">
+                                <div className="w-40 ml-4 font-semibold tracking-wide text-md">
                                     info@acme.org
                                 </div>
                             </div>
@@ -172,7 +185,7 @@ export default function Contact() {
                                     value={userData?.fullName || ""}
                                     onChange = {handleInputs}
                                     placeholder="Full Name"
-                                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+                                    className="px-3 py-3 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded-lg w-100 focus:border-orange-500 focus:outline-none"
                                 />
                             </div>
 
@@ -187,7 +200,7 @@ export default function Contact() {
                                     value={userData?.email || ""}
                                     onChange = {handleInputs}
                                     placeholder="Email"
-                                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+                                    className="px-3 py-3 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded-lg w-100 focus:border-orange-500 focus:outline-none"
                                 />
                             </div>
 
@@ -202,7 +215,7 @@ export default function Contact() {
                                     value={userData?.phoneNumber || ""}
                                     onChange = {handleInputs}
                                     placeholder="Mobile Number"
-                                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+                                    className="px-3 py-3 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded-lg w-100 focus:border-orange-500 focus:outline-none"
                                 />
                             </div>
 
@@ -217,14 +230,14 @@ export default function Contact() {
                                     value={userData?.message || ""}
                                     onChange = {handleInputs}
                                     placeholder="Message"
-                                    className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+                                    className="px-3 py-3 mt-2 font-semibold text-gray-800 bg-white border border-gray-400 rounded-lg w-100 focus:border-orange-500 focus:outline-none"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 onClick={submitForm}
-                                className="md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-orange-600 transition ease-in-out duration-300"
+                                className="px-6 py-3 mt-3 font-bold text-white transition duration-300 ease-in-out bg-orange-700 rounded-lg md:w-32 hover:bg-blue-dark hover:bg-orange-600"
                             >
                                 Submit
                             </button>

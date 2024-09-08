@@ -1,4 +1,4 @@
-import React, {useReducer, createContext } from 'react';
+import {useReducer, createContext } from 'react';
 import './App.css';
 import  { Footer, Header }  from './components';
 import { Outlet } from 'react-router-dom';

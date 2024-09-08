@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App';
+import axiosInstance from '../utils/axiosInstance';
 
 
 function Login() {
@@ -16,15 +17,19 @@ function Login() {
     const loginUser = async(e) => {
         e.preventDefault();
         try {
-            const resData = await fetch(`/user/api/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            })
+
+            const resData = await axiosInstance.post('/user/api/login', { email, password })
+            // const resData = await fetch(`/user/api/login`, {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({ email, password })
+            // })
+
             // .then((res) => res.json())
             // if (!resData.success) throw new Error(resData.message);
+
             if(resData.status == 401){
                 alert("Invalid Email or Password")
             }
@@ -51,22 +56,22 @@ function Login() {
     return (
         <section className='relative flex items-top justify-center min-h-[700px] bg-gray-50 sm:items-center sm:pt-0'>
             <div className='max-w-6xl mx-auto sm:px-6 lg:px-8 sm:text-xl '>
-                <div className='shadow grid grid-cols-1 md:grid-cols-2 p-6 gap-6 rounded-lg max-w-screen-xl bg-white'>
-                    <div className="p-6 bg-gray-100 rounded-lg h-auto ">
-                    <div className= "w-full h-full flex flex-col justify-center items-center gap-6">
+                <div className='grid max-w-screen-xl grid-cols-1 gap-6 p-6 bg-white rounded-lg shadow md:grid-cols-2'>
+                    <div className="h-auto p-6 bg-gray-100 rounded-lg ">
+                    <div className= "flex flex-col items-center justify-center w-full h-full gap-6">
                         <img className="w-96" src="https://i.ibb.co/5BCcDYB/Remote2.png" alt="image1" />
                     </div> 
                     </div>
-                    <form method='POST' className="p-6 flex flex-col justify-center border rounded-lg ">
-                        <div className=' ml-6 pb-4 font-extrabold text-2xl flex items-start'>
+                    <form method='POST' className="flex flex-col justify-center p-6 border rounded-lg ">
+                        <div className='flex items-start pb-4 ml-6 text-2xl font-extrabold '>
                           <h1>Log in</h1>
                         </div>
                         <div className="flex gap-2">
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-email zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-email zmdi-hc-1x"></i>
                         </div>
                         <div className='flex flex-col w-full'>
-                          <label for="email" className="hidden">
+                          <label htmlFor="email" className="hidden">
                               Email
                           </label>
                           <input
@@ -81,11 +86,11 @@ function Login() {
                         </div>
                         </div>
                         <div className='flex gap-2'>
-                        <div className='flex justify-center items-center w-4 text-2xl'>
-                            <i class="zmdi zmdi-lock zmdi-hc-1x"></i>
+                        <div className='flex items-center justify-center w-4 text-2xl'>
+                            <i className="zmdi zmdi-lock zmdi-hc-1x"></i>
                         </div>
                       <div className="flex flex-col w-full">
-                        <label for="password" className="hidden">
+                        <label htmlFor="password" className="hidden">
                             Password
                         </label>
                         <input
@@ -110,7 +115,7 @@ function Login() {
                             <p>Not registered?&nbsp;</p>
                             <Link
                             to={'/register'}
-                            className='hover:text-black hover:underline font-semibold'
+                            className='font-semibold hover:text-black hover:underline'
                             >
                               Register here
                             </Link>
