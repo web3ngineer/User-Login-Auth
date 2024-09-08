@@ -1,10 +1,14 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance';
 import { LoaderCircle } from 'lucide-react';
+import { UserContext } from '../App';
+
 
 
 function Register() {
+    const navigate = useNavigate()
+const {state} = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -75,6 +79,12 @@ function Register() {
             }
         }
     }
+
+    useEffect(()=> {
+        if(state.userSession){
+            navigate('/')
+        }
+    },[])
 
   return (
     <section className='relative flex items-top justify-center min-h-[700px] bg-gray-50 sm:items-center sm:pt-0'>

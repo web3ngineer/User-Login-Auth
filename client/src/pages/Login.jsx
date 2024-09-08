@@ -67,7 +67,7 @@ function Login() {
         if(state.userSession){
             navigate('/');
         }
-    })
+    },[])
 
     return (
         <section className='relative flex items-top justify-center min-h-[700px] bg-gray-50 sm:items-center sm:pt-0'>
