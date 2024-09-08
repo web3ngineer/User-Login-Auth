@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance';
-import axios from 'axios';
+
 
 function Register() {
 
@@ -26,7 +26,7 @@ function Register() {
     const PostData = async (e) => {
         e.preventDefault();
 
-        const {fullName, email, phoneNumber, work, password, confirmPassword, username} = formData;
+        const {password, confirmPassword} = formData;
         if(password !== confirmPassword){
             alert("Passwords do not match")
         }

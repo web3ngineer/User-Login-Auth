@@ -1,69 +1,60 @@
-'use client'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
+import axiosInstance from '../utils/axiosInstance';
+import { UserContext } from '../App';
 
-// interface UserData {
-//     fullName: String,
-//     email: String,
-//     phoneNumber: String,
-//     message: String,
-// }
+export default function Contact() {
 
-export default function page() {
-
-    const [userData, setUserData] = useState<{
-        fullName: String,
-        email: String,
-        phoneNumber: String,
-        message: String,
-    }>({fullName:"", email:"", phoneNumber:"", message:""});
+    const {state} = useContext(UserContext);
+    // console.log(state)
+    const [userData, setUserData] = useState({
+        fullName:'',
+        email:'', 
+        phoneNumber:'', 
+        message:'',
+    });
 
     const callContactPage = async() => {
         try {
-            const resData = await fetch(`/user/api/contact-data`,{
-                method: "GET",
-                headers:{
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify()
-            });
-
-          const {user, msg} = await resData.json()
-          // console.log("message : ", msg);
-        //   console.log(user)
-          setUserData({...userData, fullName:user.fullName, email:user.email, phoneNumber:user.phoneNumber});
+            const resData = await axiosInstance.get('/user/api/contact-data', userData)
+            const { user }= resData.data
+            // console.log(user)
+            setUserData({...userData, fullName:user.fullName, email:user.email, phoneNumber:user.phoneNumber});
 
         } catch (error) {
           console.log("Error while fetching current-user ",error)
         }
     }
 
-    useEffect((e) => {
-        callContactPage();
+    useEffect(() => {
+        if(state.userSession){
+            callContactPage();
+        }
     }, [])
 
 //************ Handle inputs *************/
 
     const handleInputs = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
+        e.preventDefault();
+        const { name, value } = e.target;
 
         setUserData({...userData, [name]:value})
     }
 
 //*************** Post Data to database ******************/
-    const submitForm = async(e)=> {
-        e.preventDefault();
+    const submitForm = async()=> {
 
         const {fullName, email, phoneNumber, message} = userData;
         try {
-            const resData = await fetch('/user/api/contact-post',
-                {method: "POST",
-                    headers:{
-                        "Content-Type": "application/json"
-                        },
-                    body: JSON.stringify({fullName, email, phoneNumber, message})
-                }
-            );
+            const resData = await axiosInstance.post('/user/api/contact-post', {fullName, email, phoneNumber, message})
+                
+            // const resData = await fetch('/user/api/contact-post',
+            //     {method: "POST",
+            //         headers:{
+            //             "Content-Type": "application/json"
+            //             },
+            //         body: JSON.stringify({fullName, email, phoneNumber, message})
+            //     }
+            // );
 
             if(resData.status == 201){
                 alert('Your Message has been sent successfully!');
@@ -102,22 +93,22 @@ export default function page() {
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="1.5"
                                     viewBox="0 0 24 24"
                                     className="w-8 h-8 text-gray-500"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="1.5"
                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                                     />
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="1.5"
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                     />
                                 </svg>
@@ -130,16 +121,16 @@ export default function page() {
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="1.5"
                                     viewBox="0 0 24 24"
                                     className="w-8 h-8 text-gray-500"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="1.5"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     />
                                 </svg>
@@ -152,16 +143,16 @@ export default function page() {
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="1.5"
                                     viewBox="0 0 24 24"
                                     className="w-8 h-8 text-gray-500"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="1.5"
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                     />
                                 </svg>
@@ -175,7 +166,7 @@ export default function page() {
                             method = "POST"
                         >
                             <div className="flex flex-col">
-                                <label for="fullName" className="hidden">
+                                <label htmlFor="fullName" className="hidden">
                                     Full Name
                                 </label>
                                 <input
@@ -190,7 +181,7 @@ export default function page() {
                             </div>
 
                             <div className="flex flex-col mt-2">
-                                <label for="email" className="hidden">
+                                <label htmlFor="email" className="hidden">
                                     Email
                                 </label>
                                 <input
@@ -205,7 +196,7 @@ export default function page() {
                             </div>
 
                             <div className="flex flex-col mt-2">
-                                <label for="phoneNumber" className="hidden">
+                                <label htmlFor="phoneNumber" className="hidden">
                                     Number
                                 </label>
                                 <input
@@ -220,7 +211,7 @@ export default function page() {
                             </div>
 
                             <div className="flex flex-col mt-2">
-                                <label for="message" className="hidden">
+                                <label htmlFor="message" className="hidden">
                                     Message
                                 </label>
                                 <textarea

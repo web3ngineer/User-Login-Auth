@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../App';
 import axiosInstance from '../utils/axiosInstance';
@@ -6,7 +6,7 @@ import axiosInstance from '../utils/axiosInstance';
 
 function Login() {
 
-    const {state, dispatch} = useContext(UserContext);
+    const {dispatch} = useContext(UserContext);
 
     const navigate = useNavigate()
 
@@ -37,7 +37,9 @@ function Login() {
                 alert('Please fill all the fields')
             }
             else if(resData.status == 201){
-                dispatch({type:"USER", payload: true})
+                console.log(resData)
+                const data = {userSession:true, username:resData.data.user.username, fullName:resData.data.user.fullName}
+                dispatch({type:"USER", payload:data})
                 alert('User LoggedIn Successfully')
                 navigate('/')
                 // window.location.replace("/");

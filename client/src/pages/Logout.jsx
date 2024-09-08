@@ -1,21 +1,23 @@
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
+import axiosInstance from '../utils/axiosInstance';
 
 export default function Logout() {
 
-    const {state, dispatch} = useContext(UserContext);
+    const {dispatch} = useContext(UserContext);
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`/user/api/logout`,{
-            method: "POST",
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        })
+        // fetch(`/user/api/logout`,{
+        //     method: "POST",
+        //     headers:{
+        //         'Content-Type': 'application/json'
+        //     },
+        //     credentials: 'include'
+        // })
+        axiosInstance.post('/user/api/logout')
         .then((res) => {
             dispatch({type:"USER", payload: false})
             navigate('/login')
