@@ -126,6 +126,7 @@ const loginUser = async(req, res) => {
         {
             httpOnly: true,
             secure:true,
+            sameSite:"None",
         }
     )
     .cookie(
@@ -134,6 +135,7 @@ const loginUser = async(req, res) => {
         {
             httpOnly: true,
             secure:true,
+            sameSite:"None",
         }
     )
     .json({msg:'User LoggedIn Successfully', user:LoggedInUser, accessToken, refreshToken})
