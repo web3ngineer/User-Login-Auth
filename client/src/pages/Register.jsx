@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance';
+import { LoaderCircle } from 'lucide-react';
 
 
 function Register() {
@@ -14,6 +15,7 @@ function Register() {
         work:'',
         username:'',
     })
+    const [loading, setLoading] = useState(false)
 
     let name, value;
     const handleInputs = (e) => {
@@ -26,13 +28,19 @@ function Register() {
     const PostData = async (e) => {
         e.preventDefault();
 
-        const {password, confirmPassword} = formData;
+        const {fullName, email, password, confirmPassword, phoneNumber, work, username} = formData;
+        // console.log(formData)
+        if(!fullName || !email || !password || !confirmPassword || !phoneNumber || work || !username){
+            alert("Please fill all the fields")
+            return null;
+        }
+
         if(password !== confirmPassword){
             alert("Passwords do not match")
         }
         else{
             try {
-
+                setLoading(true)
                 const resData = await axiosInstance.post('/user/api/register', formData)
                 // const resData = await fetch(`/user/api/register`,
                 //     {method: "POST",
@@ -45,6 +53,7 @@ function Register() {
                 // .then((res)=> res.json())
                 // .catch((error)=>{console.log(error)})
                 // console.log(resData);
+                setLoading(false)
                 if(resData.status == 401){
                     // console.log("User already exists")
                     alert("User already exists")
@@ -216,10 +225,14 @@ function Register() {
                     <button
                         type="submit"
                         onClick={PostData}
-                        className=" ml-6 md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-1.5 px-4 rounded-lg mt-6 text-[1rem] hover:bg-orange-600 transition ease-in-out duration-300"
+                        disabled={loading}
+                        className="flex justify-center items-center ml-6 md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-1.5 px-4 rounded-lg mt-6 text-[1rem] hover:bg-orange-600 transition ease-in-out duration-300"
                     >
-                        Submit
+                        {loading? <LoaderCircle className="animate-spin"/> : "Submit"}
                     </button>
+                    {loading && (
+                        <p className="mt-4 text-sm text-center text-gray-500">Backend is deployed on free server & spin down with inactivity, which can delay requests by 50 seconds or more.</p>
+                    )}
                 </form>
                 <div className="h-auto p-6 bg-gray-100 rounded-lg ">
                     <div className= "flex flex-col items-center justify-center w-full h-full gap-6">
